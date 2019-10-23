@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Daum</h1>
+    <a id="daum" href="http://www.daum.net">Daum</a>
+    <p id="intro">Hello world</p>
+    <div id="main">
+        <p class="intro">The DOM is useful</p>
+        <p class="intro">
+            This is <b>getElementsByTagName</b> method.
+        </p>
+        <div class="intro">another class intro</div>
+
+    </div>
+
+    <form id = "frm" action = "action.jsp">
+        FirstName : <input type = "text" name = "fName" value = "kildong"><br>
+        LastName : <input type = "texet" name = "lName" value = "hong"><br>
+        <input type = "submit" value = "Submit">
+    </form>
+
+    <form>
+        Name:<input type = "text" name = "name" value = "NAME">
+    </form>
+    <button onclick = "myForm()">click</button>
+
+
+    <p id="show1"></p>
+    <p id="show2"></p>
+    <p id="show3"></p>
+    <p id="show4"></p>
+    <p id="show5"></p>
+
+    <script>
+        //getElementById element 선택
+        var elem = document.getElementById("intro").innerHTML;
+        document.getElementById("show1").innerHTML = elem;  //id가 show1인 곳에 elem을 출력(elem에 id가 intro인 )
+        
+
+        //getElementsByTagName 선택
+        var elem1 = document.getElementsByTagName("p");
+        console.log(elem1);
+
+        document.getElementById("show2").innerHTML = elem1[1].innerHTML;
+
+      
+        
+        //getElementsByClassName 선택
+        var elem2 = document.getElementsByClassName("intro");
+        var tag = "";
+        for(var i=0; i<elem2.length; i++){
+            tag += elem2[i].innerHTML + "<br>"
+        }
+        document.getElementById("show3").innerHTML = tag;
+
+  
+
+        //css 선택자 querySelectorAll 선택
+        var elem3 = document.querySelectorAll("div.intro");
+        var sel = "";
+        for(var i=0; i<elem3.length; i++){
+            sel += elem3[i].innerHTML + "<br>";
+        }
+        document.getElementById("show4").innerHTML = sel;
+
+        function myForm(){
+            var x = document.forms["frm"];
+            console.log(x.elements[0].value);
+            console.log(x.elements.item(0).value);
+            console.log(x.elements.namedItem("fName").value);   //form tag안에 name이 fname인 값을 가져온다.
+        }
+
+        var y = document.forms[1].elements.namedItem("name").value;
+        console.log(y);
+
+
+
+        var daum = document.getElementById("daum");
+        console.log(daum.innerText);
+    </script>
+</body>
+
+</html>

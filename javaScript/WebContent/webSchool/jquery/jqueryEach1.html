@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        div{
+            color : red;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bolder;
+            width : 300px;
+        }
+    </style>
+    <script>
+        $(function(){
+            $("body").on("click", function(){
+                //$.each("div"),function(a,b){}도 가능
+                $("div").each(function(a,b){
+                    console.log(a,b);
+                    if($(this).css("color") == "rgb(255, 0, 0)")
+                        $(this).css("color","blue");
+                    else
+                        $(this).css("color","red");
+                    
+                })
+            })
+        });
+    </script>
+</head>
+<body>
+
+    <div>Welcome Home1</div>
+    <div>Welcome Home2</div>
+    <div>Welcome Home3</div>
+    <script>
+        var nameArray = ['홍길동','김길동','박길동'];
+        $.each(nameArray, function(i,e){
+            console.log(i, e);
+        })
+    </script>
+
+</body>
+</html>

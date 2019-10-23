@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="cal"></div>
+    <script>
+        var y = prompt("year : ");
+        var m = prompt("month : ");
+
+        function getCal(y, m) {
+            var getlastdate;
+            var lastdate;//해당 년 월의 마지막 날짜
+            var getstartday;
+            var startday;//해당 년 월의 시작인 요일
+
+
+            getlastdate = new Date(y, m, 0);
+            lastdate = getlastdate.getDate();   //해당 년 월의 마지막 날짜
+            getstartday = new Date(y, m - 1);
+            startday = getstartday.getDay();    //해당 년 월의 시작인 요일
+
+            // var l= new Date(2019,9,20);
+            // var d = new Date(2019,10,0);    //해당 월의 마지막 날짜
+            // console.log(d.getFullYear() + "년" + (d.getMonth()+1) + "월" + d.getDate()+"일"+d.getDay());
+            var tag = y + "년 " + m + "월";
+            tag += "<br><table border = 1>";
+            tag += "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
+            //해당 월의 1일부터 마지막 30 <td>날짜</td>
+            tag += "<tr>";
+
+            for (var i = 0; i < startday; i++) {
+                tag += "<td></td>";
+            }
+            for (var i = 1; i <= lastdate; i++) {
+                tag += "<td>" + i + "</td>";
+                if ((startday + i) % 7 == 0) {
+                    tag += "</tr><tr>";
+                }
+            }
+            tag += "</tr></table>";
+            document.getElementById("cal").innerHTML = tag;
+
+        }
+        getCal(y,m);
+
+    </script>
+
+</body>
+
+</html>

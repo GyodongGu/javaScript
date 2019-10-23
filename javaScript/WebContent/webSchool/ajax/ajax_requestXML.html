@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="loadXML()">Get XML</button>
+    <p id = "showXML"></p>
+    <table border="1" id="tb1">
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Country</th>
+            <th>Company</th>
+            <th>Price</th>
+            <th>Year</th>
+            <th>button</th>
+        </tr>
+    </table>
+
+    <script>
+        
+        function loadXML(){
+            var xhtp = new XMLHttpRequest();
+            xhtp.onreadystatechange=function(){
+                if(this.readyState == 4 && this.status == 200){
+                    // getXML(this);
+                    addTable(this);
+                    // add(this);
+                }
+            }
+            xhtp.open("get", "cd_catalog.xml");
+            xhtp.send();
+        }
+
+        //function1
+        function add(elem){
+            var xml = elem.responseXML;
+            var cds = xml.getElementsByTagName("CD");
+            var cdslength = cds[0].childNodes.length;
+
+            var tag = "<table border = '1'>";
+            tag+="<tr><td>title</td><td>Artist</td><td>Country</td><td>Company</td><td>Price</td><td>year</td><td>button</td>"
+            for(var i = 0; i<cds.length; i++){
+                tag +="<tr>";
+                
+                for(var j= 0; j<cdslength; j++){
+                    if(j%2 ==1){
+                        tag +="<td>";
+                        tag+=cds[i].childNodes[j].childNodes[0].nodeValue;
+                        tag +="</td>";
+                    }
+                }
+                tag+="<td><button id = "+i+">del</button></td>";
+                tag+="</tr>";
+            }
+            tag+="</table>";
+
+            document.getElementById("showXML").innerHTML = tag;
+
+            
+        }
+
+        //function 2
+        function addTable(elem){
+            var xml = elem.responseXML;
+            var cds = xml.getElementsByTagName("CD");
+            console.log(cds[0].childNodes.length);
+
+            for(var i =0; i<cds.length; i++){
+
+            var tab = document.getElementById("tb1");
+            var tr1 = document.createElement("tr");
+            tr1.setAttribute("id", "tr"+i);
+            
+            var titletd = document.createElement("td");
+            var titlevalue = document.createTextNode(cds[i].childNodes[1].childNodes[0].nodeValue);
+            titletd.appendChild(titlevalue);
+
+            var artisttd = document.createElement("td");
+            var artistvalue = document.createTextNode(cds[i].childNodes[3].childNodes[0].nodeValue);
+            artisttd.appendChild(artistvalue);
+
+            var countrytd = document.createElement("td");
+            var countryvalue = document.createTextNode(cds[i].childNodes[5].childNodes[0].nodeValue);
+            countrytd.appendChild(countryvalue);
+
+            var companytd = document.createElement("td");
+            var companyvalue = document.createTextNode(cds[i].childNodes[7].childNodes[0].nodeValue);
+            companytd.appendChild(companyvalue);
+
+            var pricetd = document.createElement("td");
+            var pricevalue = document.createTextNode(cds[i].childNodes[9].childNodes[0].nodeValue);
+            pricetd.appendChild(pricevalue);
+
+            var yeartd = document.createElement("td");
+            var yearvalue = document.createTextNode(cds[i].childNodes[11].childNodes[0].nodeValue);
+            yeartd.appendChild(yearvalue);
+
+            var buttontd = document.createElement("button");
+            var buttonvalue = document.createTextNode("del");
+            buttontd.appendChild(buttonvalue);
+            buttontd.addEventListener("click",delfunc);
+
+
+            tr1.append(titletd, artisttd, countrytd, companytd, pricetd, yeartd, buttontd);
+            tab.append(tr1);
+            }
+
+            function delfunc(){
+                var deltr = document.getElementById(this.parentNode.getAttribute("id"));
+                deltr.remove();
+            }
+        }
+
+        // function getXML(elem){
+        //     console.log(elem);
+        //     var xml = elem.responseXML;
+        //     var cds = xml.getElementsByTagName("CD");
+        //     console.log(cds[0].childNodes[1].childNodes[0].nodeValue);
+            
+        //     var tag = "<ul>";
+        //         for(var i = 0; i<cds.length; i++){
+        //             tag+="<li>" + cds[i].childNodes[1].childNodes[0].nodeValue + "</li>"
+        //         }
+        //         tag+="</ul>";
+        //         document.getElementById("showXML").innerHTML = tag;
+        // }
+
+    </script>
+</body>
+</html>

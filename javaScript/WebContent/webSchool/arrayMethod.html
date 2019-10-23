@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var fruits = ["Banana","Orange","Apple","Mango"];
+        //pop(last), shift(first)
+        var len = fruits.length
+        // for(var i =0; i<len; i++){
+        //     console.log(fruits.join(","));
+        //     fruits.pop();
+        //     fruits.shift();
+        // }
+        //push(last), unshift(first)
+        fruits.push("kiwi");
+        fruits.unshift("strawberry");
+        console.log(fruits.join("-"));
+
+        fruits[fruits.length] = "Melon";
+        fruits[fruits.length] = "Grape";
+        fruits[fruits.length] = "Lemon";
+        console.log(fruits.join("-"));
+        
+    </script>
+</body>
+</html>

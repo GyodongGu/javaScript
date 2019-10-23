@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+    <script>
+        //$(document).ready(){}를 사용하지 않고도 가능하다.
+        $(function () {                           //태그 안의 속성은 대괄호를 통해서 가능하다.
+            // $("button").eq(0).click(function () {
+            //     $("[href]").hide();
+            // })
+            // $("button").eq(1).click(function () {
+            //     $("[href]").show();
+            // })
+            $("button:first").click(function(){
+                $("a[href$=com]").hide();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button>Hide</button>
+    <button>Show</button>
+    <p>a paragraph</p>
+    <p>another paragraph</p>
+    <p><a href="https://www.daum.net" target="_blank">Daum</a></p>
+    <p><a href="http://www.naver.com"target = "parent">Naver</a></p>
+
+
+</body>
+
+</html>

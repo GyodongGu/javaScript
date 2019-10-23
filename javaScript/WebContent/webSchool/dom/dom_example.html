@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="frm">
+        <table>
+            <tr>
+                <td>이름</td>
+                <td> : </td>
+                <td><input id="name" type="text"></td>
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td> : </td>
+                <td><input id="id" type="text"></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td> : </td>
+                <td><input id="passwd" type="password"></td>
+            </tr>
+        </table>
+
+            <!-- 이름 &nbsp;&nbsp;&nbsp;&nbsp; : <input id="name" type="text"><br>
+            아이디 &nbsp;&nbsp; : <input id="id" type="text"><br>
+            비밀번호 : <input id="passwd" type="password"><br> -->
+            
+    </form>
+
+    <button id="btn" onclick="check()">확인</button>
+
+    <p id="showtitle"></p>
+    <p id="showname"></p>
+    <p id="showid"></p>
+    <p id="showpw"></p>
+    <p id="showend"></p>
+
+    <script>
+        function check() {
+
+            var x = document.forms["frm"];
+            console.log(x.elements[0].value);
+            document.getElementById("showtitle").innerHTML = "입력하신 내용은"
+            var checkname = x.elements.namedItem("name").value;
+            var checkid = x.elements.namedItem("id").value;
+            var checkpw = x.elements.namedItem("passwd").value;
+
+            document.getElementById("showname").innerHTML = "이름 : " + checkname;
+
+            document.getElementById("showid").innerHTML = "아이디 : " + checkid;
+
+            document.getElementById("showpw").innerHTML = "비밀번호 : " + checkpw;
+
+            document.getElementById("showend").innerHTML = "입니다."
+
+        }
+
+    </script>
+
+</body>
+
+</html>

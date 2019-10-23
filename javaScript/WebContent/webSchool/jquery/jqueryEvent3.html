@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("#oldBtn").click(function(){
+                newBtn();
+            })
+            // $("#newBtn").click(function(){
+            //     alert("new btn clicked.");
+            // })
+            $("body").on("click","#newBtn",function(){
+                alert("new btn clicked.");
+            });
+        })
+    </script>
+
+</head>
+<body>
+    <p id="show"></p>
+    <button id="oldBtn">OldButton</button>
+    <input type="text" name="firstName" value="Scott">
+    <button id="exist">ExistBt</button>
+    <div id="upper">
+        <p>Paragraph1</p>
+        <p>Paragraph2</p>
+
+    </div>
+    
+    <script>
+        function newBtn(){
+            var newBtn = $("<button>").text("NewBtn");
+            //<button id = "newBtn">NewBtn</button>
+            newBtn.attr("id", "newBtn");
+
+            var div = $("<div>").html($("<h3>").text("Hello"));
+            $("body").append(div);
+            $("body").append(newBtn);
+            console.log($("input[name]").val());
+            $("input[name]").val("charlie");
+            console.log(newBtn.attr("id"));
+            //remove(요소를 제거)
+            $("#exist").remove(); 
+            //empty() 하위요소를 제거
+            $("#upper").empty();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function showResult(p1, p2){
+            document.getElementById('demo').innerHTML = myMulti(p1,p2);
+        }
+        function myMulti(p1, p2){
+            return p1 * p2;
+        }
+
+        var c;
+        var f= prompt("input fahrenheit : ");
+        function fc(){
+            c=(5/9) *(f-32);
+            document.write("화씨온도 : " + f +" ===> 섭씨온도 : " + c);
+        }
+        
+        document.getElementById('demo').innerHTML = fc();
+        
+    </script>
+</head>
+<body>
+    <div id = "demo"></div>
+    <button onclick="showResult(3,5)">click</button>
+    <script>
+        var myVar = function(p1,p2){
+            return p1 * p2;
+        }
+        console.log(myVar(5,10));
+
+        var localV = 35;
+        function localFunc(){                                   //함수 안에서 var로 변수를 선언하면 그 안의 지역변수가 된다. 그 순간 localV는 값이 없?
+            console.log("function: localV => "+ localV);//35
+            localV = 50;
+            console.log("function: localV => "+ localV);
+        }
+        localFunc();
+        console.log("localV : " + localV);
+
+        
+        
+    </script>
+</body>
+</html>

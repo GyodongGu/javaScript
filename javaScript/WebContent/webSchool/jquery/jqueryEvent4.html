@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+
+</head>
+
+<body>
+    <button>CreateTable</button>
+    <script>
+
+        $("button").on("click", function () {
+            $("body table").remove();
+            
+            var table = $("<table>");
+            table.attr({ "border": 1, "id": "tab" });
+            var tr, th1, th2, th3, th4, td1, td2, td3, td4;
+            //제목
+            tr = $("<tr>").attr("align", "center");
+            th1 = $("<th>").text("이름");
+            th2 = $("<th>").text("나이");
+            th3 = $("<th>").text("전화번호");
+            th4 = $("<th>").text("이름");
+            tr.append(th1, th2, th3, th4);
+            table.append(tr);
+
+            tr = $("<tr>").attr("align", "center");
+            td1 = $("<td>").text("홍길동");
+            td2 = $("<td>").text("35");
+            td3 = $("<td>").text("010-1111-1111");
+            btn = $("<button>").text("del");
+            td4 = $("<td>").html(btn.click(delFunc));
+
+            tr.append(td1, td2, td3, td4);
+            table.append(tr);
+
+            tr = $("<tr>").attr("align", "center");
+            td1 = $("<td>").text("김길동");
+            td2 = $("<td>").text("40");
+            td3 = $("<td>").text("010-2222-2222");
+            btn = $("<button>").text("del");
+            td4 = $("<td>").html(btn.click(delFunc));
+
+            tr.append(td1, td2, td3, td4);
+            table.append(tr);
+            
+            $("body").append(table);
+
+        })
+
+        function delFunc(){
+            $(this).parent().parent().remove();
+        }
+
+        // $("button").on("click", function () {
+        //     var table = $("<table>");
+        //     var caption = $("<caption>").text("<게시판>");
+
+        //     table.attr({ "border": 1, "id": "tab" });
+        //     var tr1 = $("<tr>");
+        //     var nth = $("<th>").text("이름");
+        //     var ath = $("<th>").text("나이");
+        //     var pth = $("<th>").text("전화번호");
+        //     var bth = $("<th>").text("삭제");
+
+
+        //     var tr2 = $("<tr>");
+        //     var td1 = $("<td>").text("홍길동");
+        //     var td2 = $("<td>").text("35");
+        //     var td3 = $("<td>").text("010-1111-1111");
+        //     var td4 = $("<td>").html("<button>del</button>");
+
+        //     var tr3 = $("<tr>");
+        //     var td31 = $("<td>").text("김길동");
+        //     var td32 = $("<td>").text("40");
+        //     var td33 = $("<td>").text("010-2222-2222");
+        //     var td34 = $("<td>").html("<button>del</button>");
+
+        //     $("body").append(table);
+        //     $("table").append(caption);
+
+        //     $("table").append(tr1, tr2, tr3);
+
+        //     $("tr").eq(0).append(nth, ath, pth, bth);
+        //     $("tr").eq(1).append(td1, td2, td3, td4);
+        //     $("tr").eq(2).append(td31, td32, td33, td34);
+
+        //     $("button").on("click", function () {
+        //         $(this).parent().parent().remove();
+        //     })
+        // })
+    </script>
+
+</body>
+
+</html>

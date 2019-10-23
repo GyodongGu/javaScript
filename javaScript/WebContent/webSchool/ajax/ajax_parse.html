@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id=new></p>
+
+    <!-- <table border="1" , id="tab">
+        <tr>
+            <th>id</th>
+            <th>first_name</th>
+            <th>last_name</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>ip_address</th>
+        </tr>
+    </table> -->
+
+    <script>
+        var xhtp = new XMLHttpRequest();    //서버에서 데이터를 주고 받는 역할
+        xhtp.onreadystatechange = function () {
+            if (xhtp.readyState == 4 && xhtp.status == 200) {
+                // console.log(this.responseText);
+                // var obj = JSON.parse(this.responseText);
+                // console.log(obj);
+                // console.log("name : ",obj.name);
+                // console.log("age : ",obj.age);
+                // console.log("pets : ", obj.pets[0]);
+
+                newtab2(this)
+            }
+        }
+        xhtp.open("get", "MOCK_DATA.json");
+        xhtp.send();
+
+        function newtab2(elem){
+            var obj = JSON.parse(elem.responseText);
+            var table = document.createElement("table");
+            table.setAttribute("border",1)
+
+            for(var i =0; i<obj.length; i++){
+                var tr = document.createElement("tr");
+                for(field in obj[i]){
+                    var td = document.createElement("td");
+                    var val = document.createTextNode(obj[i][field]);
+                    td.appendChild(val);
+                    tr.appendChild(td);   
+                }
+                table.appendChild(tr);
+            }
+
+            document.getElementById("new").append(table);
+        }
+
+        
+        function newtab(elem) {
+
+            var tab = document.createElement("table");
+            tab.setAttribute("id", "tab");
+            tab.setAttribute("border",1);
+
+            var tr = document.createElement("tr");
+
+            var th1 = document.createElement("th");
+            var thvalue1 = document.createTextNode("id");
+            th1.appendChild(thvalue1);
+
+            var th2 = document.createElement("th");
+            var thvalue2 = document.createTextNode("first_name");
+            th2.appendChild(thvalue2);
+
+            var th3 = document.createElement("th");
+            var thvalue3 = document.createTextNode("last_name");
+            th3.appendChild(thvalue3);
+
+            var th4 = document.createElement("th");
+            var thvalue4 = document.createTextNode("email");
+            th4.appendChild(thvalue4);
+
+            var th5 = document.createElement("th");
+            var thvalue5 = document.createTextNode("gender");
+            th5.appendChild(thvalue5);
+
+            var th6 = document.createElement("th");
+            var thvalue6 = document.createTextNode("ip_address");
+            th6.appendChild(thvalue6);
+
+            tr.append(th1, th2, th3, th4, th5, th6);
+            tab.append(tr);
+
+            for (var i = 0; i < obj.length; i++) {
+                //var tab = document.getElementById("tab");
+                var tr = document.createElement("tr");
+
+                var idtd = document.createElement("td");
+                var idvalue = document.createTextNode(obj[i].id);
+                idtd.appendChild(idvalue);
+
+                var firsttd = document.createElement("td");
+                var firstvalue = document.createTextNode(obj[i].first_name);
+                firsttd.appendChild(firstvalue);
+
+                var lasttd = document.createElement("td");
+                var lastvalue = document.createTextNode(obj[i].last_name);
+                lasttd.appendChild(lastvalue);
+
+                var emailtd = document.createElement("td");
+                var emailvalue = document.createTextNode(obj[i].email);
+                emailtd.appendChild(emailvalue);
+
+                var gendertd = document.createElement("td");
+                var gendervalue = document.createTextNode(obj[i].gender);
+                gendertd.appendChild(gendervalue);
+
+                var iptd = document.createElement("td");
+                var ipvalue = document.createTextNode(obj[i].ip_address);
+                iptd.appendChild(ipvalue);
+
+
+                tr.append(idtd, firsttd, lasttd, emailtd, gendertd, iptd);
+                tab.append(tr);
+            }
+
+            // document.body.append(tab);
+            document.getElementById("new").append(tab);
+        }
+
+    </script>
+</body>
+
+</html>
