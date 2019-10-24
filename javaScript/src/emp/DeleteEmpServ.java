@@ -1,28 +1,23 @@
 package emp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
 /**
- * Servlet implementation class EmpServlet
+ * Servlet implementation class DeleteEmpServ
  */
-@WebServlet("/EmpServlet")
-public class EmpServlet extends HttpServlet {
+@WebServlet("/DeleteEmpServ")
+public class DeleteEmpServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmpServlet() {
+    public DeleteEmpServ() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +27,12 @@ public class EmpServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		
-		PrintWriter out = response.getWriter();
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		EmpDAO dao = new EmpDAO();
-		List<Employee> list = dao.getEmplist();		//전체 리스트 조회
-		out.println(JSONArray.fromObject(list));	//조회한 데이터를 json타입으로 프린트
+		String empNo = request.getParameter("empId");	//html로 부터 받은 데이터를 empNo에 넣는다.
+		
+		dao.deleteEmp(Integer.parseInt(empNo));			//그리고 그 empNo는 string값으로 받았기 때문에 int로 바꿔주는 과정이 필요하다.
+		
 	}
 
 	/**

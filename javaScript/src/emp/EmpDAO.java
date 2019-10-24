@@ -39,22 +39,20 @@ public class EmpDAO {
 		
 	}
 	
-	
-	public void updateEmp(Employee emp, int eNo) {
+//	employee_id = ?, first_name = ?, last_name = ?, email = ?, job_id = ?, hire_date = ?, 
+	public void updateEmp(Employee emp) {
 		conn = DAO.getConnect();
-		String sql = "update emp_temp set employee_id = ?, first_name = ?, last_name = ?, email = ?, job_id = ?, hire_date = ?, salary = ? where employee_id = ?";
+		String sql = "update emp_temp set salary = ?, email=? where employee_id = ?";
 		int Cnt = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, emp.getEmployeeId());
-			pstmt.setString(2, emp.getFirstName());
-			pstmt.setString(3, emp.getLastName());
-			pstmt.setString(4, emp.getEmail());
-			pstmt.setString(5, emp.getJobId());
-			pstmt.setString(6, emp.getHireDate());
-			pstmt.setInt(7, emp.getSalary());
-			pstmt.setInt(8, eNo);
-			pstmt.executeUpdate();
+			
+			pstmt.setInt(1, emp.getSalary());
+			pstmt.setString(2, emp.getEmail());
+			pstmt.setInt(3, emp.getEmployeeId());
+			
+			int r = pstmt.executeUpdate();
+			System.out.println(r+"건이 업데이트되었습니다.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -100,13 +98,13 @@ public class EmpDAO {
 	public void insertEmp(Employee emp) {
 		conn = DAO.getConnect();
 		String sql = "insert into emp_temp(employee_id, first_name, last_name, email, job_id, hire_date, salary)" + 
-				"values (?,?,?,?,?,?,?)";
+				"values (employees_seq.nextval,?,?,?,?,?,?)";
 		
 		int rCnt=0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(++rCnt, emp.getEmployeeId());	//database는 1번부터 시작한다.
+//			pstmt.setInt(++rCnt, emp.getEmployeeId());	//database는 1번부터 시작한다.
 			pstmt.setString(++rCnt, emp.getFirstName());
 			pstmt.setString(++rCnt, emp.getLastName());
 			pstmt.setString(++rCnt, emp.getEmail());
@@ -170,16 +168,16 @@ public class EmpDAO {
 		conn = DAO.getConnect();									//database연결
 		Employee emp = null;										//Employee타입의 결과물 공간 확보
 		String sql = "select * from emp_temp where employee_id = ?";//실행 하고자 하는 sql문
-		String sql1 = "{? = call get_dept_name(?)}";				//{?=call (procedure_name)} 실행하고자 하는 procedure
+//		String sql1 = "{? = call get_dept_name(?)}";				//{?=call (procedure_name)} 실행하고자 하는 procedure
 		try {
 			pstmt = conn.prepareStatement(sql);						//database에 접근하기위한 preparedStatement
 			pstmt.setInt(1, empNo);									//sql의 ?에 값을 입력
 			rs = pstmt.executeQuery();								//sql문 실행
-			CallableStatement cstmt = conn.prepareCall(sql1);		//procedure 사용하기위한 접근
-			cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);	//procedure 출력 parameter의 타입을 정해주는 용도
-			cstmt.setInt(2, empNo);									//두 번째 ?에 parameter값을 입력
-			cstmt.execute();										//sql1문 실행
-			String deptName = cstmt.getString(1);					//첫 번째 ?에 대한 값을 deptName에 저장
+//			CallableStatement cstmt = conn.prepareCall(sql1);		//procedure 사용하기위한 접근
+//			cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);	//procedure 출력 parameter의 타입을 정해주는 용도
+//			cstmt.setInt(2, empNo);									//두 번째 ?에 parameter값을 입력
+//			cstmt.execute();										//sql1문 실행
+//			String deptName = cstmt.getString(1);					//첫 번째 ?에 대한 값을 deptName에 저장
 			
 			
 			while(rs.next()) {
@@ -191,7 +189,7 @@ public class EmpDAO {
 				emp.setEmail(rs.getString("email"));
 				emp.setSalary(rs.getInt("salary"));
 				emp.setJobId(rs.getString("job_id"));
-				emp.setDeptName(deptName);							//setDeptName으로 deptName을 입력한다.
+//				emp.setDeptName(deptName);							//setDeptName으로 deptName을 입력한다.
 			}	
 			
 			

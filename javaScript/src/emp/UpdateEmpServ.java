@@ -1,28 +1,23 @@
 package emp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
 /**
- * Servlet implementation class EmpServlet
+ * Servlet implementation class UpdateEmpServ
  */
-@WebServlet("/EmpServlet")
-public class EmpServlet extends HttpServlet {
+@WebServlet("/UpdateEmpServ")
+public class UpdateEmpServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmpServlet() {
+    public UpdateEmpServ() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +27,17 @@ public class EmpServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		
-		PrintWriter out = response.getWriter();
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String empId = request.getParameter("empId");
+		String salary = request.getParameter("salary");
+		String email = request.getParameter("email");
+		Employee emp = new Employee();
+		emp.setEmployeeId(Integer.parseInt(empId));
+		emp.setSalary(Integer.parseInt(salary));
+		emp.setEmail(email);
 		EmpDAO dao = new EmpDAO();
-		List<Employee> list = dao.getEmplist();		//전체 리스트 조회
-		out.println(JSONArray.fromObject(list));	//조회한 데이터를 json타입으로 프린트
+		dao.updateEmp(emp);
+		
 	}
 
 	/**

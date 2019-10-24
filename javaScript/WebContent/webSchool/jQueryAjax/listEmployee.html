@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+        $.ajax({
+            url:"../../EmpServlet",			
+            dataType : "json",
+            success : function(result){		//EmpServlet결과 데이터를 가져온것.
+                console.log(result);
+                var table, tr, th, td;
+                table = $("<table />");		//테이블 규격을 만들고
+                table.attr("border","1");
+                //th 타이틀 가지고 오는 부분
+                tr = $("<tr />");			//tr을 생성
+                for(title in result[0]){	//tr에 들어갈 th값을 result데이터로 받는다.
+                    th = $("<th />").text(title);
+                    tr.append(th);			//만든 th를 tr에 넣는다.
+                }
+                tr.append($("<th />").text("삭제"));	//삭제항목을 tr추가한다.
+                table.append(tr);			//table에 tr을 추가
+
+                //td 데이터를 가지고 보여주는 부분
+                $.each(result,function(i, o){	//result의 값의 인덱스와 데이터를 매개값으로 받는다.
+                    tr = $("<tr />").attr("id", o.employeeId).dblclick(changeFunc);	//tr을 만들고 더블클릭 시 변경함수가 실행
+
+                    for(field in o){
+                    	
+                    	tr.mouseleave(function(){$(this).css("background-color","white")});
+                        tr.mouseover(function(){$(this).css("background-color","blue")});
+                    	if(field == "employeeId"){
+                    		var ahref = $("<a />").text(o[field]);
+                    		ahref.attr("href", "updateEmployee.jsp?empId="+o[field]);
+                    		td=$("<td />").html(ahref);
+                    		tr.append(td);
+                    	}else{
+                    		td = $("<td />").text(o[field]);
+                            tr.append(td);
+                    	}
+                        
+                    }
+                    var del = $("<button>").text("Del");
+                    del.click(delFunc);		//버튼 클릭시 delfunc 함수 실행
+                    tr.append($("<td>").html(del));		//del버튼을 추가
+                    table.append(tr);		//위에서 완성된 tr을 테이블에 추가
+                })
+
+                $("#show").append(table);	//table을 id가 show인 태그에 입력
+            }
+        })
+        function changeFunc(){		//더블클릭시 발생하는 변경함수 | 변경되는 데이터 row를 더블클릭한 row밑에 추가 원본은 none으로 감춤
+            var deptName = $(this).children().eq(0).text();
+            var firstName= $(this).children().eq(1).text();
+            var jobId = $(this).children().eq(2).text();
+            var lastName = $(this).children().eq(3).text();
+            var hireDate = $(this).children().eq(4).text();
+            var empId = $(this).children().eq(5).text();
+            var salary = $(this).children().eq(6).text();
+            var email = $(this).children().eq(7).text();
+
+            var tr = $("<tr />");
+            tr.append($("<td />").text(deptName));
+            tr.append($("<td />").text(firstName));
+            tr.append($("<td />").text(jobId));
+            tr.append($("<td />").text(lastName));
+            tr.append($("<td />").text(hireDate));
+            tr.append($("<td />").text(empId));
+            tr.append($("<td />").html($("<input />").val(salary)));
+            tr.append($("<td />").text(email));
+            tr.append($("<td />").html($("<button />").text("변경").click(updateFunc)));
+
+            $("#"+empId).after(tr);
+            $("#"+empId).css("display","none");
+        }
+        function updateFunc(){
+            console.log("변경");
+        }
+
+        function delFunc(){
+            console.log("delFunc");
+            var empId = $(this).parent().parent().attr("id");	//버튼의 부모부모태그에 있는 id값을 empId값으로 받는다.
+            console.log(empId);
+            $(this).parent().parent().remove();					//버튼이 있는 라인을 웹페이지에서 지운다.
+            $.ajax({
+                url:"../../DeleteEmpServ",						//서블렛을 실행시켜 해당 id에 맞는 데이터를 지운다.
+                data:"empId="+ empId,							//이러한 동작은 서블렛에 구성되어 있다.
+                success : function(){
+                    console.log("del success");
+                    
+                }
+            })
+        }
+
+    </script>
+
+</head>
+<body>
+	<a href="insertEmployee.html">입력화면</a>
+	<p id="show"></p>
+
+
+</body>
+</html>
